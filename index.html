@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet"  href="css/extend-clearfix.css">
+</head>
+<body>
+<div class="box leftHand">
+
+</div>
+<div class="box rightHand">
+
+</div>
+
+<div class="setL">
+<div id="songStyle">
+    <label>Style：</label>
+     <label class="radio-inline">
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> sin
+     </label>
+     <label class="radio-inline">
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> square
+     </label>
+     <label class="radio-inline">
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> triangle
+     </label>
+     <label class="radio-inline">
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> sawtooth
+     </label>
+ </div>
+<div id="song">
+    <label>Song：</label>
+        <button class="btn btn-default" type="submit">Button</button>
+        <button class="btn btn-default" type="submit">Button</button>
+    </div>
+ <div id="speed" class="clearfix">
+   <label>Speed：</label>
+     <input  class="" type="range" min="60" max="280" step="10">
+    <span id="speedValue">69</span><span>BPM</span>
+ </div>
+
+</div>
+<div class="setR">
+    <textarea></textarea>
+</div>
+
+<script src="js/chanShengVoice.js"></script>
+<script src="js/1.js"></script>
+</body>
+</html>
