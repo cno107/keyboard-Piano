@@ -8,6 +8,8 @@ body {
   height: 100%;
   width: 100%;
   background-color: white;
+  min-width: 1200px;
+  min-height: 700px;
 }
 ul,
 li {
@@ -16,27 +18,52 @@ li {
 .box {
   min-width: 1200px;
 }
-.box.leftHand {
-  position: absolute;
-  width: 80%;
-  height: 25%;
-  top: 50%;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-  transform-origin: center center;
-  transform: rotate(-15deg);
+@media (min-height: 725px) {
+  .box.leftHand {
+    position: absolute;
+    width: 80%;
+    height: 25%;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    transform-origin: center center;
+    transform: rotate(-15deg);
+  }
+  .box.leftHand ul {
+    height: 100%;
+    width: 100%;
+  }
+  .box.leftHand ul li {
+    height: 100%;
+    width: 4.57142857%;
+    float: left;
+    background-color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+  }
 }
-.box.leftHand ul {
-  height: 100%;
-  width: 100%;
-}
-.box.leftHand ul li {
-  height: 100%;
-  width: 4.57142857%;
-  float: left;
-  background-color: white;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+@media (max-height: 724px) {
+  .box.leftHand {
+    position: absolute;
+    width: 80%;
+    height: 25%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+  }
+  .box.leftHand ul {
+    height: 100%;
+    width: 100%;
+  }
+  .box.leftHand ul li {
+    height: 100%;
+    min-height: 105px;
+    width: 4.57142857%;
+    float: left;
+    background-color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+  }
 }
 .box.rightHand {
   top: 3%;
@@ -53,6 +80,7 @@ li {
 }
 .box.rightHand ul li {
   height: 100%;
+  min-height: 105px;
   width: 4.57142857%;
   float: left;
   background-color: white;
@@ -73,6 +101,7 @@ li {
   position: absolute;
   top: 35%;
   left: 10%;
+  margin: auto;
 }
 .setL div {
   margin-top: 20px;
@@ -92,7 +121,10 @@ li {
 .setL #speed input {
   width: 150px;
   float: left;
-  margin-top: 7px;
+  margin-top: 10px;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
 }
 .setL #speed #speedValue {
   margin-left: 10px;

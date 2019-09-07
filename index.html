@@ -5,49 +5,48 @@
     <title>index</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet"  href="css/extend-clearfix.css">
+<!--    <link rel="stylesheet"  href="css/extend-clearfix.css">-->
+    <script src="js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<div class="box leftHand">
 
-</div>
-<div class="box rightHand">
-
-</div>
+<div class="box leftHand" id="poi"></div>
+<div class="box rightHand"></div>
 
 <div class="setL">
 <div id="songStyle">
     <label>Style：</label>
      <label class="radio-inline">
-         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> sin
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="sine" checked> sine
      </label>
      <label class="radio-inline">
-         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> square
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="square"> square
      </label>
      <label class="radio-inline">
-         <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> triangle
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="triangle"> triangle
      </label>
      <label class="radio-inline">
-         <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> sawtooth
+         <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="sawtooth"> sawtooth
      </label>
  </div>
 <div id="song">
     <label>Song：</label>
         <button class="btn btn-default" type="submit">Button</button>
-        <button class="btn btn-default" type="submit">Button</button>
+<!--        <button class="btn btn-default" type="submit" >Button</button>-->
     </div>
- <div id="speed" class="clearfix">
+ <div id="speed" class="clearfix" hidden>
    <label>Speed：</label>
-     <input  class="" type="range" min="60" max="280" step="10">
-    <span id="speedValue">69</span><span>BPM</span>
+     <input id="speedControl" class="" type="range" min="60" max="280" step="1" >
+    <span id="speedValue">140</span><span>BPM</span>
  </div>
 
 </div>
-<div class="setR">
+<div class="setR" hidden>
     <textarea></textarea>
 </div>
 
-<script src="js/chanShengVoice.js"></script>
+<script src="js/createVoice.js"></script>
+<script src="js/speedControl.js"></script>
 <script src="js/1.js"></script>
 </body>
 </html>
