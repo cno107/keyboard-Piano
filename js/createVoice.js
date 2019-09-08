@@ -31,8 +31,10 @@ class MusicBox {
                          '一','二','三','四','五','六','七'];
         this.draw();
 
-        this.speed = 90;
+        this.speed = 170;
         this.paused = false;
+
+        this.exist = false; //set a global mark来判断当前是否已经有同样的音乐正在播放
 
         // 播放乐谱
         // if(this.opts.autoplay){
@@ -129,84 +131,85 @@ class MusicBox {
 
 
     playMusic(musicText) {
-　　　　　　　
-        let noteArr = musicText.split('');
-        let delayTime = 1000 * 60;
-         console.log(noteArr);
+        if(!this.exist){
+            this.exist = true; //进来据说明现在存在了
+            this.pauseMusic(false);　//change play status
 
-        (async () => {
-            try{
-                let i = 0;
-                while (!this.paused) {
-                    if(i >= noteArr.length){  // 停止或者循环
-                        if(this.opts.loop){
-                            i = 0;
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                    let n = this.arrNotes.indexOf(noteArr[i]);  // 钢琴键位置
-                    if(n !== -1){  // 发出乐音
-                        console.log(n);
-                        let mark = this.arrMarks[n];
-                        this.pressBtn(mark);
-                        if(n < 14){
-                            $('.leftHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
-                            // boxThis.css('background-color','rgba(0,0,0,.05)');
-                            setTimeout(function () {
-                                $('.leftHand li').eq(n).css('background-color','white');
-                            },200);
+            let noteArr = musicText.split('');
+            let delayTime = 1000 * 60;
+            //console.log(noteArr);
 
-                        }else{
-                            n = n - 14 ;
-                            $('.rightHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
-                            setTimeout(function () {
-                                $('.rightHand li').eq(n).css('background-color','white');
-                            },200);
+            (async () => {
+                try{
+                    let i = 0;
+                    while (!this.paused) {
+                        if(i >= noteArr.length){  // 停止或者循环
+                            if(this.opts.loop){
+                                i = 0;
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        let n = this.arrNotes.indexOf(noteArr[i]);  // 钢琴键位置
+                        if(n !== -1){  // 发出乐音
+                            console.log(n);
+                            let mark = this.arrMarks[n];
+                            this.pressBtn(mark);
+                            if(n < 14){
+                                $('.leftHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
+                                // boxThis.css('background-color','rgba(0,0,0,.05)');
+                                setTimeout(function () {
+                                    $('.leftHand li').eq(n).css('background-color','white');
+                                },200);
 
+                            }else{
+                                n = n - 14 ;
+                                $('.rightHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
+                                setTimeout(function () {
+                                    $('.rightHand li').eq(n).css('background-color','white');
+                                },200);
+
+                            }
+                            await sleep(20);
                         }
-                        await sleep(20);
-                    }
-                    else{
-                        switch (noteArr[i]) {
-                            case '0': ;console.log('0');break; // 休止符
-                            case '-': await sleep(delayTime / (2 * this.speed)) ;console.log('-'); break; // 八分音符时值
-                            case '=': await sleep(delayTime / (4 * this.speed)) ;console.log('='); break; // 十六分音符时值
-                            case '!': await sleep(delayTime / (8 * this.speed)) ;console.log('!'); break; // 32分音符时
-                            default: await sleep(delayTime / this.speed); break; // 四分音符时值
-                            //case '-':console.log('-');break;
+                        else{
+                            switch (noteArr[i]) {
+                                case '0': ;console.log('0');break; // 休止符
+                                case '-': await sleep(delayTime / (2 * this.speed)) ;console.log('-'); break; // 八分音符时值
+                                case '=': await sleep(delayTime / (4 * this.speed)) ;console.log('='); break; // 十六分音符时值
+                                case '!': await sleep(delayTime / (8 * this.speed)) ;console.log('!'); break; // 32分音符时
+                                default: await sleep(delayTime / this.speed); break; // 四分音符时值
+                                //case '-':console.log('-');break;
+                            }
                         }
+                        i++;
                     }
-                    i++;
                 }
-            }
-            catch (e) {
-                console.log('わからないw')
-            }
-        })();
+                catch (e) {
+                    console.log('わからないw')
+                }
+            })();
 
 
 
+        }else{
+            console.log('current music is playing');
+        }
+　　　　　　
     }
 
-    pauseMusic(){
-        this.paused = true;
+    pauseMusic(boolean){
+        this.paused = boolean;
+        if(boolean){
+            this.exist = false; //停止的话 把music存在状态改为false
+        }
     }
 
     setPlaySpeed(speed) {
         this.speed = speed;
     }
 
-
-
-    // pressBtn(obj,i) {   // 按下钢琴键
-    //     obj.className = 'cur';
-    //     this.createSound(this.arrFrequency[i]);
-    //     setTimeout(() => {
-    //         this.musicBtn[i].className = '';
-    //     },200);
-    // }
 
 }
 
