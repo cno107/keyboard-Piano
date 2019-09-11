@@ -7,7 +7,9 @@ let music = new MusicBox('.leftHand','.rightHand',{
     autoplay:10,
 });
 
+
 console.log(music);
+
 
 
 //play music
@@ -24,6 +26,36 @@ $('.Lemon').click(function () {
     });
 
 });
+$('.dreamWedding').click(function () {
+    let musicName = $(this).text();
+
+//get json data
+    $.getJSON('./musicContext.json',(data)=>{
+        music.playMusic(data[musicName].melody);      //加载旋律
+        // music.pauseMusic(false);   //start
+        $('#speedControl').val(data[musicName].speed); //改speed进度条
+        $('#speedValue').text(data[musicName].speed);  //改speed文本
+        music.setPlaySpeed(data[musicName].speed);    //更改music speed
+    });
+
+});
+$('.sakura').click(function () {
+    let musicName = 'sakura';
+
+//get json data
+    $.getJSON('./musicContext.json',(data)=>{
+        music.playMusic(data[musicName].melody);      //加载旋律
+        // music.pauseMusic(false);   //start
+        $('#speedControl').val(data[musicName].speed); //改speed进度条
+        $('#speedValue').text(data[musicName].speed);  //改speed文本
+        music.setPlaySpeed(data[musicName].speed);    //更改music speed
+    });
+
+});
+
+
+
+
 
 
 //change style
@@ -36,3 +68,18 @@ $('input[type=radio]').click(function () {
 $('.stopBtn').click(()=>{
    music.pauseMusic(true);
 });
+
+
+//test LR
+$('.test').click(()=>{
+    music.setPlaySpeed(180);
+
+   $('#speedControl').val('180'); //改speed进度条
+    $('#speedValue').text('180');  //改speed文本
+    music.playMusic('');
+
+
+
+
+
+})

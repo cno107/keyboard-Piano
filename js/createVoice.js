@@ -14,35 +14,33 @@ class MusicBox {
         this.arrFrequency = [
 
 
-            // 131,147,165,175,196,220,247,
+            131,147,165,175,196,220,247,
             262,294,330,349,392,440,494,
             523,587,659,698,784,880,988,
             1047,1175,1319,1397,1568,1760, 1967,
-            2089,2288,2565,2716,3047,3417,3832
+            2089,2288,2565,2716,3047,3417,3832,
+            4100,4400,4700,5000,5300,5600,5900
                    ];
         this.arrMarks = [
+            '!1','!2','!3','!4','!5','!6','!7',
+            '@1', '@2', '@3', '@4', '@5', '@6', '@7',
             '#1', '#2', '#3', '#4', '#5', '#6', '#7',
             '1$','2$','3$','4$','5$','6$','7$',
             '1%','2%','3%','4%','5%','6%','7%',
             '1^','2^','3^','4^','5^','6^','7^',];
-        this.arrNotes = ['c', 'd', 'e', 'f', 'g', 'a', 'b',
+        this.arrNotes = ['r','t','y','u','i','o','p',
+                         'c', 'd', 'e', 'f', 'g', 'a', 'b',
                          '1', '2', '3', '4', '5', '6', '7',
-                        'C', 'D', 'E', 'F', 'G', 'A', 'B',
-                         '一','二','三','四','五','六','七'];
+                         'C', 'D', 'E', 'F', 'G', 'A', 'B',
+                         '一','二','三','四','五','六','七',
+                          '壹','贰','叁','肆','伍','陆','柒'];
+        this.keyNum = 42;
         this.draw();
 
         this.speed = 170;
         this.paused = false;
 
         this.exist = false; //set a global mark来判断当前是否已经有同样的音乐正在播放
-
-        // 播放乐谱
-        // if(this.opts.autoplay){
-        //     this.speed = this.opts.autoplay === true ? this.speed : this.opts.autoplay;
-        //     this.playMusic(this.opts.musicText);
-        // }
-
-
 
     }
 
@@ -73,22 +71,24 @@ class MusicBox {
 
      draw(){
          let keyText = [
+             '!1','!2','!3','!4','!5','!6','!7',
+             '@1', '@2', '@3', '@4', '@5', '@6', '@7',
              '#1', '#2', '#3', '#4', '#5', '#6', '#7',
              '1$','2$','3$','4$','5$','6$','7$',
              '1%','2%','3%','4%','5%','6%','7%',
              '1^','2^','3^','4^','5^','6^','7^',];
-         let keyNum = 28;
+
          let keyL = document.querySelector('.leftHand'),
              liL = '';
          let keyR = document.querySelector('.rightHand'),
              liR = '';
 
          //  draw piano keys
-         for(let i = 0; i < keyNum/2; i++){
+         for(let i = 0; i < Math.ceil(this.keyNum/2); i++){
              liL += '<li><span></span><i class="iCss">'+ keyText[i] +'</i></li>'
          }
          keyL.innerHTML = '<ul>'+ liL +'</ul>';
-         for(let i = keyNum/2; i < keyNum; i++){
+         for(let i = Math.ceil(this.keyNum/2); i < this.keyNum; i++){
              liR += '<li><span></span><i class="iCss">'+ keyText[i]+'</i></li>'
          }
          keyR.innerHTML = '<ul>'+ liR +'</ul>';
@@ -118,7 +118,7 @@ class MusicBox {
 
 
     pressBtn(mark) {
-        // console.log(mark);
+        console.log(mark);
         this.createMusic(mark);
         //console.log(boxThis+'~'+mark);
             // let mark = $(this).children('i').text();
@@ -148,6 +148,7 @@ class MusicBox {
                                 i = 0;
                             }
                             else {
+                                this.exist = false; //播放完了可以改回来了
                                 break;
                             }
                         }
@@ -156,16 +157,16 @@ class MusicBox {
                             console.log(n);
                             let mark = this.arrMarks[n];
                             this.pressBtn(mark);
-                            if(n < 14){
-                                $('.leftHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
+                            if(n < this.keyNum/2){
+                                $('.leftHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
                                 // boxThis.css('background-color','rgba(0,0,0,.05)');
                                 setTimeout(function () {
                                     $('.leftHand li').eq(n).css('background-color','white');
                                 },200);
 
                             }else{
-                                n = n - 14 ;
-                                $('.rightHand li').eq(n).css('background-color','rgba(0,0,0,.05)');
+                                n = n - this.keyNum/2 ;
+                                $('.rightHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
                                 setTimeout(function () {
                                     $('.rightHand li').eq(n).css('background-color','white');
                                 },200);
@@ -175,11 +176,13 @@ class MusicBox {
                         }
                         else{
                             switch (noteArr[i]) {
-                                case '0': ;console.log('0');break; // 休止符
+                                case '0': console.log('0');break; // 休止符
                                 case '-': await sleep(delayTime / (2 * this.speed)) ;console.log('-'); break; // 八分音符时值
                                 case '=': await sleep(delayTime / (4 * this.speed)) ;console.log('='); break; // 十六分音符时值
                                 case '!': await sleep(delayTime / (8 * this.speed)) ;console.log('!'); break; // 32分音符时
-                                default: await sleep(delayTime / this.speed); break; // 四分音符时值
+                                case '^': await sleep(delayTime / this.speed); console.log('^');break; // 四分音符时值
+                                case '?': await sleep(delayTime /(3 * this.speed)); console.log('?');break; // 12分音符时值 用于三连音 把一个四分音符分成仨
+                                case '*': await sleep(delayTime /(6 * this.speed)); console.log('*');break; // 24分音符时值 用于三连音 把一个8分音符分成仨
                                 //case '-':console.log('-');break;
                             }
                         }
@@ -193,7 +196,8 @@ class MusicBox {
 
 
 
-        }else{
+        }
+        else{
             console.log('current music is playing');
         }
 　　　　　　
