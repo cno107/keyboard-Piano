@@ -66,6 +66,7 @@ class MusicBox {
         // this.opts.duration秒内声音慢慢降低，是个不错的停止声音的方法
         gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + this.opts.duration);
         // this.opts.duration秒后完全停止声音
+
         oscillator.stop(this.audioCtx.currentTime + this.opts.duration);
     }
 
@@ -117,6 +118,9 @@ class MusicBox {
 
 
     pressBtn(mark) {
+        if(!this.opts.volume){
+            this.opts.volume = 1;
+        }
         //console.log(mark);
         this.createMusic(mark);
         //console.log(boxThis+'~'+mark);
@@ -130,6 +134,7 @@ class MusicBox {
 
 
     playMusic(musicText,L) {
+
         if(!this.exist){
             this.exist = true; //进来据说明现在存在了
             this.pauseMusic(false);　//change play status
@@ -208,12 +213,13 @@ class MusicBox {
                     let l = 0;
                     while (!this.paused) {
                         this.opts.volume=.5;  //left hand volume 每次在循环时设定
+                        this.opts.duration = 3; //左手旋律 音比较长
                         if(l >= noteArrL.length){  // 停止或者循环
                             if(this.opts.loop){
                                 l = 0;
                             }
                             else {
-                                this.exist = false; //播放完了可以改回来了
+                                this.exist = true; //左手播放完之后 不用管 根据右手主旋律来判断
                                 break;
                             }
                         }
