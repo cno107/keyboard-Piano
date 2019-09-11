@@ -5,10 +5,26 @@ let music = new MusicBox('.leftHand','.rightHand',{
     type: voiceStyle,
     duration: 2,
     autoplay:10,
+
 });
 
 
-console.log(music);
+
+
+
+$('.test').click(function () {
+    console.log(music);
+    let musicName = 'sakura';
+
+//get json data
+    $.getJSON('./musicContext.json',(data)=>{
+        music.playMusic(data[musicName].melody,data[musicName].melodyL);      //加载旋律
+        // music.pauseMusic(false);   //start
+        $('#speedControl').val(data[musicName].speed); //改speed进度条
+        $('#speedValue').text(data[musicName].speed);  //改speed文本
+        music.setPlaySpeed(data[musicName].speed);    //更改music speed
+    });
+});
 
 
 
@@ -70,16 +86,3 @@ $('.stopBtn').click(()=>{
 });
 
 
-//test LR
-$('.test').click(()=>{
-    music.setPlaySpeed(180);
-
-   $('#speedControl').val('180'); //改speed进度条
-    $('#speedValue').text('180');  //改speed文本
-    music.playMusic('');
-
-
-
-
-
-})

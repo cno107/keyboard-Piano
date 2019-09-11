@@ -60,7 +60,7 @@ class MusicBox {
         // 当前时间设置音量为0
         gainNode.gain.setValueAtTime(0, this.audioCtx.currentTime);
         // 0.01秒后音量为1
-        gainNode.gain.linearRampToValueAtTime(1, this.audioCtx.currentTime + 0.01);
+        gainNode.gain.linearRampToValueAtTime(this.opts.volume, this.audioCtx.currentTime + 0.01);
         // 音调从当前时间开始播放
         oscillator.start(this.audioCtx.currentTime);
         // this.opts.duration秒内声音慢慢降低，是个不错的停止声音的方法
@@ -116,9 +116,8 @@ class MusicBox {
 
 
 
-
     pressBtn(mark) {
-        console.log(mark);
+        //console.log(mark);
         this.createMusic(mark);
         //console.log(boxThis+'~'+mark);
             // let mark = $(this).children('i').text();
@@ -130,19 +129,23 @@ class MusicBox {
     }
 
 
-    playMusic(musicText) {
+    playMusic(musicText,L) {
         if(!this.exist){
             this.exist = true; //进来据说明现在存在了
             this.pauseMusic(false);　//change play status
 
             let noteArr = musicText.split('');
+            let noteArrL = L ? L.split('') : '' ;  //如果传进来left就用 没有就空
             let delayTime = 1000 * 60;
-            //console.log(noteArr);
+            console.log(noteArr);
+            console.log(noteArrL);
 
             (async () => {
+
                 try{
                     let i = 0;
                     while (!this.paused) {
+                        this.opts.volume=3;  //right hand volume 每次在循环时设定
                         if(i >= noteArr.length){  // 停止或者循环
                             if(this.opts.loop){
                                 i = 0;
@@ -154,7 +157,7 @@ class MusicBox {
                         }
                         let n = this.arrNotes.indexOf(noteArr[i]);  // 钢琴键位置
                         if(n !== -1){  // 发出乐音
-                            console.log(n);
+                            //console.log('右：'+n);
                             let mark = this.arrMarks[n];
                             this.pressBtn(mark);
                             if(n < this.keyNum/2){
@@ -172,17 +175,23 @@ class MusicBox {
                                 },200);
 
                             }
-                            await sleep(20);
+                           // await sleep(20);
                         }
                         else{
                             switch (noteArr[i]) {
                                 case '0': console.log('0');break; // 休止符
-                                case '-': await sleep(delayTime / (2 * this.speed)) ;console.log('-'); break; // 八分音符时值
-                                case '=': await sleep(delayTime / (4 * this.speed)) ;console.log('='); break; // 十六分音符时值
-                                case '!': await sleep(delayTime / (8 * this.speed)) ;console.log('!'); break; // 32分音符时
-                                case '^': await sleep(delayTime / this.speed); console.log('^');break; // 四分音符时值
-                                case '?': await sleep(delayTime /(3 * this.speed)); console.log('?');break; // 12分音符时值 用于三连音 把一个四分音符分成仨
-                                case '*': await sleep(delayTime /(6 * this.speed)); console.log('*');break; // 24分音符时值 用于三连音 把一个8分音符分成仨
+                                case '-': await sleep(delayTime / (2 * this.speed)) ;//console.log('左-');
+                                    break; // 八分音符时值
+                                case '=': await sleep(delayTime / (4 * this.speed)) ;//console.log('左=');
+                                    break; // 十六分音符时值
+                                case '!': await sleep(delayTime / (8 * this.speed)) ;//console.log('左!');
+                                    break; // 32分音符时
+                                case '^': await sleep(delayTime / this.speed); //console.log('左^');
+                                    break; // 四分音符时值
+                                case '?': await sleep(delayTime /(3 * this.speed)); //console.log('左?');
+                                    break; // 12分音符时值 用于三连音 把一个四分音符分成仨
+                                case '*': await sleep(delayTime /(6 * this.speed));// console.log('左*');
+                                    break; // 24分音符时值 用于三连音 把一个8分音符分成仨
                                 //case '-':console.log('-');break;
                             }
                         }
@@ -193,7 +202,67 @@ class MusicBox {
                     console.log('わからないw')
                 }
             })();
+            (async () => {
 
+                try{
+                    let l = 0;
+                    while (!this.paused) {
+                        this.opts.volume=.5;  //left hand volume 每次在循环时设定
+                        if(l >= noteArrL.length){  // 停止或者循环
+                            if(this.opts.loop){
+                                l = 0;
+                            }
+                            else {
+                                this.exist = false; //播放完了可以改回来了
+                                break;
+                            }
+                        }
+                        let n = this.arrNotes.indexOf(noteArrL[l]);  // 钢琴键位置
+                        if(n !== -1){  // 发出乐音
+                            //console.log('右：'+n);
+                            let mark = this.arrMarks[n];
+                            this.pressBtn(mark);
+                            if(n < this.keyNum/2){
+                                $('.leftHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+                                setTimeout(function () {
+                                    $('.leftHand li').eq(n).css('background-color','white');
+                                },200);
+
+                            }else{
+                                n = n - this.keyNum/2 ;
+                                $('.rightHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+                                setTimeout(function () {
+                                    $('.rightHand li').eq(n).css('background-color','white');
+                                },200);
+
+                            }
+                           // await sleep(20);
+                        }
+                        else{
+                            switch (noteArrL[l]) {
+                                case '0': console.log('0');break; // 休止符
+                                case '-': await sleep(delayTime / (2 * this.speed)) ;
+                                    break; // 八分音符时值
+                                case '=': await sleep(delayTime / (4 * this.speed)) ;
+                                    break; // 十六分音符时值
+                                case '!': await sleep(delayTime / (8 * this.speed)) ;
+                                    break; // 32分音符时
+                                case '^': await sleep(delayTime / this.speed);
+                                    break; // 四分音符时值
+                                case '?': await sleep(delayTime /(3 * this.speed));
+                                    break; // 12分音符时值 用于三连音 把一个四分音符分成仨
+                                case '*': await sleep(delayTime /(6 * this.speed));
+                                    break; // 24分音符时值 用于三连音 把一个8分音符分成仨
+                                //case '-':console.log('-');break;
+                            }
+                        }
+                        l++;
+                    }
+                }
+                catch (e) {
+                    console.log('わからないw')
+                }
+            })();
 
 
         }
@@ -202,6 +271,9 @@ class MusicBox {
         }
 　　　　　　
     }
+
+    // 创建立体音（三和弦）
+
 
     pauseMusic(boolean){
         this.paused = boolean;
@@ -216,6 +288,7 @@ class MusicBox {
 
 
 }
+
 
 function sleep(ms) {
     return new Promise((resolve) => {
