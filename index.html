@@ -5,13 +5,14 @@
     <title>index</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
-<!--    <link rel="stylesheet"  href="css/extend-clearfix.css">-->
+
     <script src="js/jquery-3.3.1.js"></script>
+<!--    <script src="dist/main.js" data-description="webpackを使った"></script>-->
 </head>
 <body>
 
-<div class="box leftHand" id="poi"></div>
-<div class="box rightHand"></div>
+<div class="box leftHand clearfix" id="poi"></div>
+<div class="box rightHand clearfix"></div>
 
 <div class="setL">
 <div id="songStyle">
@@ -31,10 +32,11 @@
  </div>
 <div id="song">
     <label>Song：</label>
-        <button class="btn btn-primary Lemon" type="submit">Lemon</button>
-        <button class="btn btn-primary dreamWedding" type="submit" >dreamWedding</button>
-     <button class="btn btn-primary sakura" type="submit" >千本桜</button>
-    <button class="btn btn-danger test" type="submit" >test</button>
+<!--          class 必须和 value 一致-->
+        <button class="btn btn-primary songBtn Lemon"         value="Lemon">Lemon</button>
+        <button class="btn btn-primary songBtn dreamWedding"  value="dreamWedding">dreamWedding</button>
+        <button class="btn btn-primary songBtn sakura"        value="sakura" >千本桜</button>
+        <button class="btn btn-danger  songBtn sakuraLR"      value="sakuraLR">test</button>
     </div>
  <div id="speed" class="clearfix" >
    <label>Speed：</label>
@@ -46,12 +48,10 @@
         <button class="btn btn-warning stopBtn">Stop Current Music</button>
     </div>
 </div>
-<div class="setR" hidden>
+<div class="setR" >
     <textarea></textarea>
 </div>
-
 <script src="js/createVoice.js"></script>
-<script src="js/speedControl.js"></script>
-<script src="js/1.js"></script>
+<script src="js/setBind.js"></script>
 </body>
 </html>

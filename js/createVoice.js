@@ -1,4 +1,4 @@
-class MusicBox {
+ class MusicBox {
     constructor(selectorL,selectorR,options){
         // 默认值
 
@@ -6,7 +6,6 @@ class MusicBox {
             type: 'sine',  // 音色类型  sine|square|triangle|sawtooth
             duration: 2  // 键音延长时间
         };
-        // this.opts = Object.assign(defaults, options);
         this.opts = options;
 
         // 创建新的音频上下文接口
@@ -34,7 +33,7 @@ class MusicBox {
                          'C', 'D', 'E', 'F', 'G', 'A', 'B',
                          '一','二','三','四','五','六','七',
                           '壹','贰','叁','肆','伍','陆','柒'];
-        this.keyNum = 42;
+        this.keyNum = 28;
         this.draw();
 
         this.speed = 170;
@@ -88,11 +87,11 @@ class MusicBox {
          for(let i = 0; i < Math.ceil(this.keyNum/2); i++){
              liL += '<li><span></span><i class="iCss">'+ keyText[i] +'</i></li>'
          }
-         keyL.innerHTML = '<ul>'+ liL +'</ul>';
+         keyL.innerHTML = '<ul class="clearfix">'+ liL +'</ul>';
          for(let i = Math.ceil(this.keyNum/2); i < this.keyNum; i++){
              liR += '<li><span></span><i class="iCss">'+ keyText[i]+'</i></li>'
          }
-         keyR.innerHTML = '<ul>'+ liR +'</ul>';
+         keyR.innerHTML = '<ul class="clearfix">'+ liR +'</ul>';
 
 
          //为了在下面的函数里使用 本层的this 我们把this赋值 这样下的函数中可以直接使用
@@ -102,6 +101,10 @@ class MusicBox {
              let mark = $(this).children('i').text();
              //console.log(mark);
              musicThis.pressBtn(mark);
+             boxThis.css('background-color','rgba(0,0,0,.1)');
+             setTimeout(function () {
+                 boxThis.css('background-color','white');
+             },200);
          });
 
      }
@@ -152,29 +155,30 @@ class MusicBox {
                     while (!this.paused) {
                         this.opts.volume=3;  //right hand volume 每次在循环时设定
                         if(i >= noteArr.length){  // 停止或者循环
-                            if(this.opts.loop){
-                                i = 0;
-                            }
-                            else {
-                                this.exist = false; //播放完了可以改回来了
+                             this.exist = false; //播放完了可以改回来了
                                 break;
-                            }
+
                         }
                         let n = this.arrNotes.indexOf(noteArr[i]);  // 钢琴键位置
                         if(n !== -1){  // 发出乐音
+                            n = n - 7;
                             //console.log('右：'+n);
                             let mark = this.arrMarks[n];
                             this.pressBtn(mark);
+                            let r = Math.round(Math.random()*255);
+                            let g =  Math.round(Math.random()*255);
+                            let b =  Math.round(Math.random()*255);
                             if(n < this.keyNum/2){
-                                $('.leftHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
-                                // boxThis.css('background-color','rgba(0,0,0,.05)');
+                              //  $('.leftHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
+                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
                                 setTimeout(function () {
                                     $('.leftHand li').eq(n).css('background-color','white');
                                 },200);
 
                             }else{
                                 n = n - this.keyNum/2 ;
-                                $('.rightHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
+                             //   $('.rightHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
+                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
                                 setTimeout(function () {
                                     $('.rightHand li').eq(n).css('background-color','white');
                                 },200);
@@ -212,31 +216,32 @@ class MusicBox {
                 try{
                     let l = 0;
                     while (!this.paused) {
-                        this.opts.volume=.5;  //left hand volume 每次在循环时设定
+                        this.opts.volume=3;  //left hand volume 每次在循环时设定
                         this.opts.duration = 3; //左手旋律 音比较长
                         if(l >= noteArrL.length){  // 停止或者循环
-                            if(this.opts.loop){
-                                l = 0;
-                            }
-                            else {
-                                this.exist = true; //左手播放完之后 不用管 根据右手主旋律来判断
+                            this.exist = true; //左手播放完之后 不用管 根据右手主旋律来判断
                                 break;
-                            }
                         }
                         let n = this.arrNotes.indexOf(noteArrL[l]);  // 钢琴键位置
                         if(n !== -1){  // 发出乐音
-                            //console.log('右：'+n);
+                            n=n-7;
                             let mark = this.arrMarks[n];
                             this.pressBtn(mark);
+                                let r = Math.round(Math.random()*255);
+                                let g =  Math.round(Math.random()*255);
+                                let b =  Math.round(Math.random()*255);
                             if(n < this.keyNum/2){
-                                $('.leftHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+
+                               // $('.leftHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
                                 setTimeout(function () {
                                     $('.leftHand li').eq(n).css('background-color','white');
                                 },200);
 
                             }else{
                                 n = n - this.keyNum/2 ;
-                                $('.rightHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+                              //  $('.rightHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
+                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
                                 setTimeout(function () {
                                     $('.rightHand li').eq(n).css('background-color','white');
                                 },200);
@@ -278,7 +283,7 @@ class MusicBox {
 　　　　　　
     }
 
-    // 创建立体音（三和弦）
+
 
 
     pauseMusic(boolean){
@@ -301,3 +306,6 @@ function sleep(ms) {
         setTimeout(resolve, ms);
     });
 }
+
+
+
