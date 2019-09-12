@@ -36,7 +36,7 @@
         this.keyNum = 28;
         this.draw();
 
-        this.speed = 170;
+        this.speed = 100;
         this.paused = false;
 
         this.exist = false; //set a global mark来判断当前是否已经有同样的音乐正在播放
@@ -145,8 +145,8 @@
             let noteArr = musicText.split('');
             let noteArrL = L ? L.split('') : '' ;  //如果传进来left就用 没有就空
             let delayTime = 1000 * 60;
-            console.log(noteArr);
-            console.log(noteArrL);
+           // console.log(noteArr);
+           // console.log(noteArrL);
 
             (async () => {
 
@@ -170,7 +170,7 @@
                             let b =  Math.round(Math.random()*255);
                             if(n < this.keyNum/2){
                               //  $('.leftHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
-                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
+                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.4)');
                                 setTimeout(function () {
                                     $('.leftHand li').eq(n).css('background-color','white');
                                 },200);
@@ -178,7 +178,7 @@
                             }else{
                                 n = n - this.keyNum/2 ;
                              //   $('.rightHand li').eq(n).css('background-color','rgba(255,0,0,.1)');
-                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
+                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.4)');
                                 setTimeout(function () {
                                     $('.rightHand li').eq(n).css('background-color','white');
                                 },200);
@@ -233,7 +233,7 @@
                             if(n < this.keyNum/2){
 
                                // $('.leftHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
-                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
+                                $('.leftHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.4)');
                                 setTimeout(function () {
                                     $('.leftHand li').eq(n).css('background-color','white');
                                 },200);
@@ -241,7 +241,7 @@
                             }else{
                                 n = n - this.keyNum/2 ;
                               //  $('.rightHand li').eq(n).css('background-color','rgba(0,0,255,.1)');
-                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.2)');
+                                $('.rightHand li').eq(n).css('background-color','rgba('+r+','+g+','+b+',.4)');
                                 setTimeout(function () {
                                     $('.rightHand li').eq(n).css('background-color','white');
                                 },200);

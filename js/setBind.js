@@ -59,7 +59,7 @@ console.log(music);
 
         $('#speedValue').text(speed);
         music.setPlaySpeed(speed);
-        console.log('現在スピード'+speed+'BPM');
+       // console.log('現在スピード'+speed+'BPM');
     };
     $('#speedControl').on('input',speedControl);
 //このinputはイベント処理のtypes

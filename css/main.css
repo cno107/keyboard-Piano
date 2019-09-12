@@ -5,8 +5,26 @@
 }
 html,
 body {
-  background-color: white;
+  min-height: 700px;
   min-width: 1200px;
+  position: relative;
+}
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  z-index: -10;
+  zoom: 1;
+  background: url("./bgzz.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-position: center 0;
+  filter: blur(9px);
 }
 ul,
 li {
@@ -19,57 +37,30 @@ li {
   width: 798px;
   height: 200px;
 }
-@media (min-height: 725px) {
-  .box.leftHand {
-    position: absolute;
-    width: 80%;
-    top: 55%;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    transform-origin: center center;
-    transform: rotate(-15deg);
-  }
-  .box.leftHand ul {
-    position: absolute;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    width: 798px;
-    height: 191px;
-  }
-  .box.leftHand ul li {
-    width: 55px;
-    height: 100%;
-    min-height: 105px;
-    background-color: white;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
-  }
+.box.leftHand {
+  position: absolute;
+  width: 80%;
+  top: 55%;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  transform-origin: center center;
+  transform: rotate(-15deg);
 }
-@media (max-height: 724px) {
-  .box.leftHand {
-    position: absolute;
-    width: 80%;
-    top: 50%;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-  }
-  .box.leftHand ul {
-    position: absolute;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    width: 798px;
-    height: 191px;
-  }
-  .box.leftHand ul li {
-    width: 55px;
-    height: 100%;
-    min-height: 105px;
-    background-color: white;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
-  }
+.box.leftHand ul {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 798px;
+  height: 191px;
+}
+.box.leftHand ul li {
+  width: 55px;
+  height: 100%;
+  min-height: 105px;
+  background-color: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
 }
 .box.rightHand {
   overflow: auto;
@@ -106,14 +97,6 @@ li {
   bottom: 5%;
   font-size: 18px;
 }
-@media (max-height: 724px) {
-  .setL {
-    display: none;
-  }
-  .setR {
-    display: none;
-  }
-}
 .setL {
   position: absolute;
   top: 30%;
@@ -124,10 +107,17 @@ li {
   margin-top: 20px;
 }
 .setL label {
+  color: lightcoral;
   font-size: 20px;
+}
+.setL span {
+  color: lightcoral;
 }
 .setL button {
   margin-left: 20px;
+}
+.setL #song {
+  min-width: 1000px;
 }
 .setL #speed {
   font-size: 20px;
@@ -147,13 +137,11 @@ li {
   margin-left: 10px;
 }
 .setR {
-  width: 30%;
-  height: 20%;
-  min-width: 380px;
-  min-height: 120px;
+  width: 25%;
+  height: 18%;
+  right: 5%;
+  bottom: 8%;
   position: absolute;
-  right: 10%;
-  bottom: 5%;
 }
 .setR textarea {
   outline: none;
@@ -161,5 +149,9 @@ li {
   height: 100%;
   padding: 3px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+}
+.setR button {
+  margin-bottom: 10px;
+  margin-left: 20px;
 }
 /*# sourceMappingURL=main.css.map */

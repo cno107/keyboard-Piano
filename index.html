@@ -10,7 +10,8 @@
 <!--    <script src="dist/main.js" data-description="webpackを使った"></script>-->
 </head>
 <body>
-
+<!--<img src="./css/bgzz.jpg" alt="bg"/>-->
+<div class="bg"></div>
 <div class="box leftHand clearfix" id="poi"></div>
 <div class="box rightHand clearfix"></div>
 
@@ -40,18 +41,24 @@
     </div>
  <div id="speed" class="clearfix" >
    <label>Speed：</label>
-     <input id="speedControl" class="" type="range" min="60" max="280" step="1" >
+     <input id="speedControl" class="" type="range" min="60" max="220" step="1" >
     <span id="speedValue">170</span><span>BPM</span>
  </div>
     <div id="stop" class="" >
         <label>Stop：</label>
-        <button class="btn btn-warning stopBtn">Stop Current Music</button>
+        <button class="btn btn-warning stopBtn">Stop Music</button>
     </div>
 </div>
 <div class="setR" >
-    <textarea></textarea>
+    <button class="btn btn-success encode"  >Encode</button>
+<!--    <button class="btn btn-primary clear"  >Clear</button>-->
+    <button class="btn btn-primary mode"  >R-Mode</button>
+    <button class="btn btn-primary sample"  >Sample</button>
+    <textarea class="DIYmusicR" ></textarea>
+    <textarea class="DIYmusicL" hidden ></textarea>
 </div>
 <script src="js/createVoice.js"></script>
 <script src="js/setBind.js"></script>
+<script src="js/setR.js"></script>
 </body>
 </html>
